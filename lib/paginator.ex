@@ -161,14 +161,14 @@ defmodule Paginator do
     end
   end
 
-  defp after_cursor([], [], _config), do: nil
+  def after_cursor([], [], _config), do: nil
 
-  defp after_cursor(paginated_entries, _sorted_entries, %Config{before: c_before} = config)
+  def after_cursor(paginated_entries, _sorted_entries, %Config{before: c_before} = config)
        when not is_nil(c_before) do
     last_or_nil(paginated_entries, config)
   end
 
-  defp after_cursor(paginated_entries, sorted_entries, config) do
+  def after_cursor(paginated_entries, sorted_entries, config) do
     if last_page?(sorted_entries, config) do
       nil
     else
@@ -242,14 +242,14 @@ defmodule Paginator do
   #
   # When we have only a before cursor, we get our results from
   # sorted_entries in reverse order due t
-  defp paginate_entries(sorted_entries, %Config{before: before, after: nil, limit: limit})
+  def paginate_entries(sorted_entries, %Config{before: before, after: nil, limit: limit})
        when not is_nil(before) do
     sorted_entries
     |> Enum.take(limit)
     |> Enum.reverse()
   end
 
-  defp paginate_entries(sorted_entries, %Config{limit: limit}) do
+  def paginate_entries(sorted_entries, %Config{limit: limit}) do
     Enum.take(sorted_entries, limit)
   end
 end
